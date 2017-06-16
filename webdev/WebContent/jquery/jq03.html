@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script type="text/javascript" src="jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#btnRight').click(function() {
+                // 			alert($('#left').val())
+                if ($('#left').val() !== '') {
+                    $('#right').val($('#left').val())
+                    $('#left').val('')
+                }
+            })
+
+            $('#btnLeft').click(function() {
+                // 			alert($('#right').val())
+                if ($('#right').val() !== '') {
+                    $('#left').val($('#right').val())
+                    $('#right').val('')
+                }
+            })
+
+            $('#btnReset').click(function() {
+                $('#right').val('')
+                $('#left').val('')
+            })
+
+            $("td").children().css("align:center")
+        })
+
+    </script>
+
+</head>
+
+<body>
+    <table>
+        <tbody>
+            <tr>
+                <td><textarea id="left" rows="20" cols="30"></textarea></td>
+                <td><button id="btnRight" style="width: 30px;">→</button> <br />
+                    <Button id="btnLeft" style="width: 30px;">←</Button> <br />
+                    <Button id="btnReset" style="width: 30px;">○</Button>
+                </td>
+                <td><textarea id="right" rows="20" cols="30"></textarea></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

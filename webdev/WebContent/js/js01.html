@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function first_func() {
+		var str = document.getElementById('web2').innerText
+		// 		alert(str)
+		// 최근에는 var 대신 let을 추천
+		// let을 이용하면 변수의 값이 계속 남아 있지 않게 된다.
+		// 
+		console.log(str)
+	}
+</script>
+</head>
+<body>
+	<div onclick="alert('hello')">hello web 1</div>
+	<div id="web2" onclick="first_func()">hello web 2</div>
+	<div>hello web</div>
+	<span>Hi~!</span>
+	<span>Hi~!</span>
+	<span>Hi~!</span>
+</body>
+</html>
