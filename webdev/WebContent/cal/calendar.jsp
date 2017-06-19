@@ -21,6 +21,8 @@
 
 </head>
 <body>
+
+
 	<%
 		//scriptlet
 		Calendar cal = Calendar.getInstance();
