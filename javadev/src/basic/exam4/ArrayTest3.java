@@ -1,10 +1,14 @@
 package basic.exam4;
 
+import java.util.Vector;
+
 public class ArrayTest3 {
 	public static void main(String[] args) {
 		int[][] score = { { 100, 90, 80, 70 }, { 90, 80, 70, 60 }, { 80, 70, 60, 50 } };
 
 		int rowlen = score.length;
+
+		Vector<Integer> v = new Vector<>();
 
 		System.out.println("국어\t영어\t수학\t철학\t총점\t평균");
 
