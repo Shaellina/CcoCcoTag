@@ -1,3 +1,9 @@
 *.log
 .metadata/
 .recommenders/
+*.pdf
+*.ppt
+*.pptx
+.classpath
+.project
+.settings
