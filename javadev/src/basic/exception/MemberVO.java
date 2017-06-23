@@ -1,10 +1,15 @@
 package basic.exception;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.lang.StringBuffer;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class MemberVO implements Serializable {
+
 	private String userId;
 	private String userPw;
 	private String userName;

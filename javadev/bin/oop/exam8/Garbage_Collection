@@ -1,0 +1,85 @@
+Garbage Collection working method
+
+Reference Counting Algorithm
+-> 각 Object 마다 Reference Count를 관리하여 Reference Count가 0일 때 Garbage Collection을 수행한다.
+
+
+장점
+1. Garbage Object를 확인하는 작업이 간단하다.
+2. Pause Time이 분산되어 실시간 작업에도 거의 영향을 주지 않는다.
+
+단점
+1. 
+2. 
+
+만약, 1개의 객체가 또 다른 객체를 가리키고 있을 경우...
+a -> ref -> 1
+         -> 2
+         
+이때, a = null이 되버리면 ref를 Garbage Collection이 처리하게되고 ref가 가리키는 1,2는 사용이 불가해진다.
+-> 그래서 같이 사용하는 것이 하나가 더있다.
+
+
+LinkedList에서 발생 할 수 있다.
+a -> ref1 -> ref2 -> ref3
+      ^				  |
+      ┖---------------┘
+a = null이 되어도 사라지지 않는다.
+
+이를 해결하기 위해 Mark and Sweep Algorithm을 이용한다.
+Flag의 여부로 접근이 불가한 것을 삭제하게 된다.
+
+장점
+1. Reference 관계가 정확하게 파악된다.
+2. Reference 변경시 부가 작업이 없으면 속도가 빠르다.
+
+단점
+1. Garbage Collection 과정 중에는 Heap의 사용이 제한된다. ( 멈춤 현상이 나타날 수도 있다.)
+2. Fragmentation이 발생하게 된다. 
+
+다시 이 문제를 해결하기 위해 Mark and Compaction Algorithm을 이용한다.
+Fragmentation이 발생했을 때 압축을 하게 된다.
+
+Fragmentation이 발생하는 단점을 보완하기 위한 알고리즘
+
+Arbitrary Compaction
+Linear Compaction -> 참조하는 순서대로
+Sliding Compaction
+-> Sliding이 가장 효율적이다. Linear 방식대로 전체를 순차 접근하는 경우는 많지 않기 때문이다.
+일반적으로 Random하게 Access하기 때문에 Sliding을 이용한다.
+
+장점
+
+
+단점
+1. 오버헤드 발생
+
+
+다시 이 문제를 해결하기 위해 Copying Algorithm을 이용한다.
+쓰고있는 영역과 쓰지 않는 영역으로 나누어서 관리한다.
+Active 영역과 Inactive 영역으로 나누고 
+
+단점
+1. 메모리를 반 밖에 사용 할 수 없다. 항상 반을 남겨두어야 한다.
+ 
+
+다시 이 문제를 해결하기 위해 Generational Algorithm을 이용한다.
+instance들은 일정 시간 뒤에 소멸 되는 게 있고 일정 시간 뒤에 소멸이 되지 않는 것은 끝까지 죽지 않는다는 판단
+영역을 2개로 나누는데 나이 별로 나눈다.
+
+Youngest Generation Sub Heap과 Oldest Generation Sub Heap으로 나뉜다.
+1. 일정 시간 뒤에 Youngest 에서 죽은 것은 제거하고 살아있는 것을 Live로 바꾼다.
+2. 다시 일정 시간 뒤에 Youngest에서 죽은 것은 제거하고 살아 있는 것 중 Live인 것은 Matured로 바꾼다.
+3. Matured 된 것은 Oldest Generation Sub Heap으로 옮기게 된다.
+ 
+
+더 발전 된 Train Algorithm이 있는데 Generational Algorithm과 매우 유사
+
+**********************************Appendix**********************************
+java.lang 은 따로 import 하지 않아도 기본적으로 컴파일할 때 사용된다. 
+****************************************************************************
+RapperClass는 잘못된 표현이고 Boxed Primitives라고 하는게 더 정확 ( Oracle )
+-> Heap에 생성됨
+
+그래서 stack에 갔다가 Heap으로 가게 되서 속도가 느려짐
+****************************************************************************
