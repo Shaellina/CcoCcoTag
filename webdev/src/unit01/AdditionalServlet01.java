@@ -23,6 +23,18 @@ public class AdditionalServlet01 extends HttpServlet {
 	// 여러 명의 다중 접속이 있을 경우에만 필요한 부분
 	// private static final long serialVersionUID = 1L;
 
+	/*
+	 * GET /webdev/AdditionalServlet01?name=jung HTTP/1.1
+	 */
+
+	/*
+	 * POST /webdev/AdditionalServlet01 HTTP/1.1 Host: localhost:8088
+	 * Content-type : application/x-www-form-urlencoded user-agent: Mozilla/5.0
+	 * Content-type : 9
+	 * 
+	 * name=jung
+	 */
+
 	// 하는 일이 없음
 	/**
 	 * @see HttpServlet#HttpServlet() / public AdditionalServlet01() { super();
@@ -63,8 +75,7 @@ public class AdditionalServlet01 extends HttpServlet {
 		System.out.println("그래, 난 " + name + ". 포기를 모르는 남자");
 		// response.getWriter().append("hi! this is post method, " + name +
 		// ".");
-		out.println("hi! this is get method, " + name + ".");
+		out.println("hi! this is post method, " + name + ".");
 		out.close();
 	}
-
 }
