@@ -8,6 +8,7 @@
 <link rel="shortcut icon" href="/favicon.ico" />
 </head>
 <body>
+	<%-- include --%><% %>
 	<jsp:include page="10_header.jsp"></jsp:include>
 	<a href="10_main.jsp">메인 페이지로 되돌아가기</a>
 	<jsp:include page="10_footer.jsp"></jsp:include>
