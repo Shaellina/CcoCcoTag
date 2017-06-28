@@ -30,4 +30,7 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	<session-config>
+		<session-timeout>30</session-timeout><!-- 30분으로 분단위 값 넣기 -->
+	</session-config>
 </web-app>
