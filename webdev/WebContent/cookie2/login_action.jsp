@@ -35,7 +35,7 @@
 		pstmt = conn.prepareStatement(sql.toString());
 
 		pstmt.setString(1, id);
-		pstmt.setString(2, DigestUtils.sha512Hex(pw));
+		
 
 		rs = pstmt.executeQuery(); // 원본 데이터에 조작이 가해지지 않을 때, 조작을 할 때는 executeUpdate();
 

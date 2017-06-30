@@ -10,25 +10,25 @@
 <link rel="shortcut icon" href="/favicon.ico" />
 </head>
 <body>
-	<%
+	<%--
 		// 공통으로 들어가는 이러한 부분은 필터를 이용하면 쉽다.
 		/*************************************************************/
 		String id = (String) session.getAttribute("user_id");
 		String name = (String) session.getAttribute("user_name");
 		String level = (String) session.getAttribute("user_level");
 
-		if (id == null || name == null || level == null) {
-	%>
-	<script type="text/javascript">
+		if (id == null || name == null) {
+	--%>
+	<!-- <script type="text/javascript">
 		alert("당신은 로그인 하지 않았습니다.");
 		location.href = "session_form.jsp";
-	</script>
-	<%
+	</script> -->
+	<%--
 		return; // 하단이 실행하지 않게 하기위해.. 혹시나 실행 과정에서 아랫 부분까지 실행 되는 것을 막기 위해
 			// client request ----> server ----> jsp 처리 ----> scriptlet 처리 ----> server response ----> client script 실행
 		}
 		/*************************************************************/
-	%>
+	--%>
 
 	<h1>세션 테스트 중입니다.</h1>
 	현재

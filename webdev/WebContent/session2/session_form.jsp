@@ -8,7 +8,7 @@
 <link rel="shortcut icon" href="/favicon.ico" />
 </head>
 <body>
-	<form action="session_add.jsp" method="post">
+	<form action="session_add.jsp" method="get">
 		<table>
 			<caption>세션 생성 폼</caption>
 			<tr>

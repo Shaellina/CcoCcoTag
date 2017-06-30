@@ -1,3 +1,5 @@
+<%@page import="java.util.regex.Matcher"%>
+<%@page import="java.util.regex.Pattern"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,13 +16,15 @@
 		String name = request.getParameter("user_name");
 		String level = request.getParameter("user_level");
 
-		if (id == null || name == null || level == null) {
+		Pattern pattern = Pattern.compile("(^[0-9]*$)");
+		Matcher matcher = pattern.matcher(id);
+		
+		if (id.equals("") || name.equals("")) {
 	%>
 	<script type="text/javascript">
-		alert("당신은 로그인을 하지 않았습니다.");
+		alert("아이디나 이름을 입력하지 않았습니다.");
 		location.href = "session_form.jsp";
 	</script>
-
 	<%
 		//response.sendRedirect("session_form.jsp");
 		} else {

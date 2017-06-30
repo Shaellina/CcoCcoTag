@@ -9,8 +9,9 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 // javax.servlet 에 대한 정보는 java EE에서 찾아야 함
 public class Auth implements Filter {
@@ -28,25 +29,30 @@ public class Auth implements Filter {
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		HttpServletRequest request = (HttpServletRequest) req;
+		HttpServletResponse response = (HttpServletResponse) res;
+		HttpSession session = request.getSession();
 		String contextPath = request.getContextPath();
-		String uri = request.getRequestURI().substring(contextPath.length());
+		String action = request.getRequestURI();
+		String result = request.getRequestURI().substring(contextPath.length());
 
-		System.out.println("contextPath : " + contextPath + ", URI : " + uri);
+		System.out.println("URI : " + action + ", contextPath : " + contextPath + ", path : " + result);
 		// session 을 만드는 부분은 제외 시켜주기 위함이다.
-		if (uri.equals("/session2/session_form.jsp") || uri.equals("/session2/session_add.jsp")) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
-			dispatcher.forward(req, res);
-			return;
-		} else {
-			System.out.println("Auth Filter doFilter()");
+		if (!(result.equals("/session2/session_form.jsp") || result.equals("/session2/session_add.jsp"))) {
 
-			String id = (String) req.getAttribute("user_id");
-			String name = (String) req.getAttribute("user_name");
-			String level = (String) req.getAttribute("user_level");
+			String id = (String) session.getAttribute("user_id");
+			String name = (String) session.getAttribute("user_name");
+			String level = (String) session.getAttribute("user_level");
 
 			if (id == null || name == null || level == null) {
+				request.setAttribute("msg", "먼저 로그인을 해야 합니다.");
+				request.setAttribute("url", contextPath + "/session2/session_form.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher(result);
+				dispatcher.forward(request, response);
+				return;
 			}
 		}
+
+		chain.doFilter(request, response);
 	}
 
 	// 서버가 켜질 때 맨 처음 한 번 수행하고 계속 떠있음
