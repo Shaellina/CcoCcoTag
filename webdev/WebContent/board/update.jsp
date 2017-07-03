@@ -10,7 +10,7 @@
 <%
 	Long no = Long.parseLong(request.getParameter("no"));
 
-	BoardVO boardVO = new BoardVO();
+	BoardVO boardVO = null;
 
 	Connection conn = null;
 	PreparedStatement pstmt = null;
@@ -26,9 +26,10 @@
 		Class.forName("oracle.jdbc.OracleDriver");
 		conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "bigdata", "bigdata");
 		pstmt = conn.prepareStatement(sql.toString());
-		rs = pstmt.executeQuery();
 		pstmt.setLong(1, no);
+		rs = pstmt.executeQuery();
 		if(rs.next()) {
+			boardVO = new BoardVO();
 			boardVO.setName(rs.getString("name"));
 			boardVO.setTitle(rs.getString("title"));
 			boardVO.setContent(rs.getString("content"));
@@ -48,11 +49,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="shortcut icon" href="/favicon.ico" />
+
 </head>
 <body>
-	<form action="update_action.jsp" method="post">
+	<form action="update_action.jsp" method="get">
 		<table>
 			<caption>게시물 입력</caption>
+			<tr>
+				<input type="hidden" name="no" value="<%=no%>"/>
+			</tr>
 			<tr>
 				<th>작성자</th>
 				<td><input type="text" name="name" maxlength="6" value="<%=boardVO.getName()%>" /></td>

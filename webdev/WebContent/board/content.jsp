@@ -12,43 +12,46 @@
 	ResultSet rs = null;
 
 	Long no = Long.parseLong(request.getParameter("no"));
-	int viewCount = Integer.parseInt(request.getParameter("viewcount"));
-	StringBuffer sql = new StringBuffer();
-	StringBuffer sql2 = new StringBuffer();
+	String count = request.getParameter("viewcount");
+	if (count != null) {
 
-	sql.append(" update tb_board");
-	sql.append(" set viewcount=" + (viewCount + 1));
-	sql.append(" where no=" + no);
+		StringBuffer sql = new StringBuffer();
+		int viewCount = Integer.parseInt(count);
+		sql.append(" update tb_board");
+		sql.append(" set viewcount=" + (viewCount + 1));
+		sql.append(" where no=" + no);
 
-	try {
-		Class.forName("oracle.jdbc.OracleDriver");
-		conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "bigdata", "bigdata");
+		try {
+			Class.forName("oracle.jdbc.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "bigdata", "bigdata");
 
-		pstmt = conn.prepareStatement(sql.toString());
-		if (pstmt.executeUpdate() != 1) {
-			throw new Exception("수정되지 않았음");
-		}
-
-		conn.commit();
-	} catch (Exception e) {
-		e.printStackTrace();
-	} finally {
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+			pstmt = conn.prepareStatement(sql.toString());
+			if (pstmt.executeUpdate() != 1) {
+				throw new Exception("수정되지 않았음");
 			}
-		}
-		if (conn != null) {
-			try {
-				conn.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+
+			conn.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
 
+	StringBuffer sql2 = new StringBuffer();
 	sql2.append(" select no, name, title, content, regdate, viewcount");
 	sql2.append(" from tb_board");
 	sql2.append(" where no=?");
@@ -131,7 +134,7 @@
 
 	</table>
 	<a href="list.jsp">리스트</a>
-	<a href="update.jsp?no="<%=boardVO.getNo()%>>수정</a>
-	<a href="delete.jsp">삭제</a>
+	<a href="update.jsp?no=<%=boardVO.getNo()%>">수정</a>
+	<a href="delete.jsp?no=<%=boardVO.getNo()%>">삭제</a>
 </body>
 </html>
