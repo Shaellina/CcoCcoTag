@@ -1,0 +1,15 @@
+package article.controllers;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class ArticleInsert extends AbstractController {
+
+	@Override
+	public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+
+		ModelAndView mav = new ModelAndView();
+		return new ModelAndView("/WEB-INF/views/article/insert.jsp");
+	}
+}
