@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<c:set var="start" value="${pageVO.start}" scope="page"/>
+<c:set var="end" value="${pageVO.end}" scope="page"/>
 
 <!DOCTYPE html>
 <html>
@@ -44,6 +46,24 @@ table.type08 td {
 	border-right: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
 }
+
+a {
+	text-decoration: none;
+}
+
+a:ENABLED {
+	color: #3f3f3f;
+}
+
+a:ACTIVE {
+	color: #3f3f3f;
+	text-shadow: navy;
+}
+
+a:HOVER {
+	color: #3f3f3f;
+	font-style: oblique;
+}
 </style>
 </head>
 <body>
@@ -51,25 +71,28 @@ table.type08 td {
 		<caption>게시물 리스트</caption>
 		<thead>
 			<tr>
-				<th scope="cols">번호</th>
-				<th scope="cols">제목</th>
-				<th scope="cols">작성자</th>
-				<th scope="cols">작성일</th>
-				<th scope="cols">조회수</th>
+				<th scope="col">번호</th>
+				<th scope="col">제목</th>
+				<th scope="col">작성자</th>
+				<th scope="col">작성일</th>
+				<th scope="col">조회수</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${lists}" var="vo" >
+			<c:forEach items="${lists}" var="vo">
 				<tr>
 					<td>${vo.no }</td>
-					<td><a href="detail?no=${vo.no }">${vo.title }</a></td>
+					<td><a id="detail" href="detail?no=${vo.no }">${vo.title }</a></td>
 					<td>${vo.name }</td>
 					<td>${vo.regDate }</td>
 					<td>${vo.viewCount }</td>
 				</tr>
 			</c:forEach>
 			<tr>
-				<td colspan="5">page block</td>
+				<td colspan="5" align="center"><c:forEach items="${pages}"
+						var="page">
+						<a href="pagelist?page=${page}">${page}</a>
+					</c:forEach></td>
 			</tr>
 		</tbody>
 	</table>

@@ -13,33 +13,32 @@
 		<caption>게시물 상세보기</caption>
 		<tr>
 			<th>글번호</th>
-			<td>${article.no }</td>
+			<td>${articleVO.no }</td>
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td>${article.name }</td>
+			<td>${articleVO.name }</td>
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td>${article.title }</td>
+			<td>${articleVO.title }</td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td>${article.content }</td>
+			<td>${articleVO.content }</td>
 		</tr>
 		<tr>
 			<th>날짜</th>
-			<td>${article.regDate }</td>
+			<td>${articleVO.regDate }</td>
 		</tr>
 		<tr>
 			<th>조회수</th>
-			<td>${article.viewCount }</td>
+			<td>${articleVO.viewCount }</td>
 		</tr>
 	</table>
 	<br />
 	<a href="list">리스트</a>
-	<a href="update">수정</a>
-	<a href="delete">삭제</a>
-	</form>
+	<a href="update?no=${articleVO.no}">수정</a>
+	<a href="delete?no=${articleVO.no}">삭제</a>
 </body>
 </html>

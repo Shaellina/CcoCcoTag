@@ -13,11 +13,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static Logger logger = Logger.getLogger(DispatcherServlet.class);
+
+	// private static org.apache.log4j.Logger logger =
+	// org.apache.log4j.Logger.getLogger(DispatcherServlet.class);
+	private static Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
 
 	private static Map<String, AbstractController> controllerMap = new HashMap<String, AbstractController>();
 
@@ -101,7 +105,7 @@ public class DispatcherServlet extends HttpServlet {
 			logger.info("go to the " + mav.getViewName());
 			return;
 		} else {
-			logger.info("DispatcherServlet ampping error");
+			logger.info("DispatcherServlet mapping error");
 		}
 	}
 }
