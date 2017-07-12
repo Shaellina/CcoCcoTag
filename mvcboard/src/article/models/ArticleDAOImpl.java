@@ -1,7 +1,5 @@
 package article.models;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,9 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
-import article.controllers.PageVO;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 public class ArticleDAOImpl implements ArticleDAO {
 	private static ArticleDAOImpl articleDAO = null;
@@ -20,26 +19,38 @@ public class ArticleDAOImpl implements ArticleDAO {
 	private String url = null;
 	private String username = null;
 	private String password = null;
-
+	private DataSource ds = null;
+	
 	private ArticleDAOImpl() {
-		Properties pr = new Properties();
-		String props = this.getClass().getResource("").getPath() + "/database.properties";
+		/*
+		 * Properties pr = new Properties(); String props =
+		 * this.getClass().getResource("").getPath() + "/database.properties";
+		 * try { pr.load(new FileInputStream(props));
+		 * 
+		 * driver = pr.getProperty("driver"); url = pr.getProperty("url");
+		 * username = pr.getProperty("username"); password =
+		 * pr.getProperty("password");
+		 * 
+		 * Class.forName(driver); } catch (ClassNotFoundException | IOException
+		 * e) { e.printStackTrace(); }
+		 */ // ConnectionPool을 이용할 때 이부분이 필요 없다.
+		
 		try {
-			pr.load(new FileInputStream(props));
-
-			driver = pr.getProperty("driver");
-			url = pr.getProperty("url");
-			username = pr.getProperty("username");
-			password = pr.getProperty("password");
-
-			Class.forName(driver);
-		} catch (ClassNotFoundException | IOException e) {
+			// conn = DriverManager.getConnection("oracle.jdbc.OracleDriver"); 같은 방법 말고 다르게 불러온다.
+			
+			Context context = new InitialContext(); // 내부에서 Pooling을 할 준비
+			Context envContext = (Context) context.lookup("java:/comp/env"); // 자바에서 Directory를 접근하는 방법
+			ds = (DataSource) envContext.lookup("jdbc/mydbcp"); // connection을 얻어 올 수 있다.
+			
+			DataSource dds = (DataSource) context.lookup("java:/comp/env/jdbc/mydbcp"); // 위의 것을 한 번에 합치면 다음과 같다.
+		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 
 	private Connection getConnection() throws SQLException {
-		return DriverManager.getConnection(url, username, password);
+		// return DriverManager.getConnection(url, username, password);
+		return ds.getConnection();
 	}
 
 	public static ArticleDAOImpl getInstance() {
@@ -353,5 +364,30 @@ public class ArticleDAOImpl implements ArticleDAO {
 			dbClose(rs, pstmt, conn);
 		}
 		return count % pageSize == 0 ? count / pageSize : (count / pageSize) + 1;
+	}
+
+	@Override
+	public long getTotalCount() throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		StringBuffer sql = new StringBuffer();
+
+		sql.append(" select count(*) as cnt");
+		sql.append(" from tb_article");
+		long count = 0;
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				count = rs.getInt("cnt");
+			}
+		} finally {
+			dbClose(rs, pstmt, conn);
+		}
+		return count;
 	}
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Resource auth="Container" driverClassName="oracle.jdbc.OracleDriver"
+		maxTotal="10" name="jdbc/mydbcp" username="bigdata" password="bigdata"
+		type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:xe"></Resource>
+</Context>
+
+<!-- server.xml에 있을 경우 server 에서 해당 server를 지웠을 때 종속적으로 같이 사라진다. 
+	그래서 META-INF/context.xml로 독립적이게 빼놓는 게 좋다. -->
+
+<!-- maxTotal : 최대 메모리와 cpu 점유율 퍼센트, 
+	 maxWaitMillis : 동시 접족 시 대기자들의 최대 대기시간, -1이면 안기다린다. -->

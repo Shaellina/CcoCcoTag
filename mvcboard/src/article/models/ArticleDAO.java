@@ -8,9 +8,9 @@ public interface ArticleDAO {
 	List<ArticleVO> getArticleList() throws Exception;
 
 	List<ArticleVO> getArticlePageList(int page, int pageSize) throws Exception;
-	
+
 	int getPageList(int pageSize) throws Exception;
-	
+
 	ArticleVO getDetail(long no) throws Exception;
 
 	void updateViewCount(long no) throws Exception;
@@ -20,4 +20,6 @@ public interface ArticleDAO {
 	String getCheckPassword(long no) throws Exception;
 
 	void deleteArticle(long no, String pwd) throws Exception;
+
+	long getTotalCount() throws Exception;
 }

@@ -2,9 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:set var="start" value="${pageVO.start}" scope="page"/>
-<c:set var="end" value="${pageVO.end}" scope="page"/>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,10 +86,17 @@ a:HOVER {
 				</tr>
 			</c:forEach>
 			<tr>
-				<td colspan="5" align="center"><c:forEach items="${pages}"
-						var="page">
-						<a href="pagelist?page=${page}">${page}</a>
-					</c:forEach></td>
+				<td colspan="5" align="center"><a
+					href="pagelist?page=${cur-11 < 1? 1: cur-11 }"> ◁◁ </a> <c:forEach
+						items="${pages}" var="page">
+						<c:if test="${page != cur}">
+							<a href="pagelist?page=${page}">${page}</a>
+						</c:if>
+						<c:if test="${page == cur }">
+							<a>${page}</a>
+						</c:if>
+					</c:forEach> <a href="pagelist?page=${cur+11 > end-1? end-1: cur+11 }"> ▷▷
+				</a></td>
 			</tr>
 		</tbody>
 	</table>
