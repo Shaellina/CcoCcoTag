@@ -8,13 +8,10 @@
 <link rel="shortcut icon" href="/favicon.ico" />
 </head>
 <body>
-	<form action="upload.do" name="" method="post" enctype="multipart/form-data">
-		글쓴이 : <input type="text" name="name"/><br/>
-		제 &nbsp; 목 &nbsp; : <input type="text" name="title"/><br/>
-		<input type="file" name="uploadFile" /> 
-		<input type="file" name="uploadFile" />
+	<form action="uploads.do" method="post" enctype="multipart/form-data">
+		글쓴이 <input type="text" name="name" /><br/>
+		제목   <input type="text" name="title" /><br/>
 		<input type="file" name="uploadFile" /> <input type="submit" value="전송" />
-		
 	</form>
 </body>
 </html>
