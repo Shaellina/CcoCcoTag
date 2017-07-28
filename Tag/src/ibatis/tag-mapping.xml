@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="tag">
+	<typeAlias alias="TagVO" type="tag.models.TagVO" />
+	
+	<select id="getTop3TagList" parameterClass="Long" resultClass="TagVO">
+		SELECT 
+				name, 
+				count
+		FROM 	ggt_tag
+		WHERE 	ggt_file_id=#id#
+		AND		rownum &lt; 4
+		ORDER BY count desc
+	</select>
+	
+	<select id="getTagList" parameterClass="Long" resultClass="TagVO">
+		SELECT 
+				name, 
+				count
+		FROM 	ggt_tag
+		WHERE 	ggt_file_id=#id#
+		ORDER BY count desc
+	</select>
+	
+	<insert id="uploadTag" parameterClass="TagVO">
+		INSERT INTO ggt_tag (
+			name,
+			count,
+			ggt_file_id
+		) VALUES (
+			#name#,
+			#count#,
+			#fileId#
+		)
+	</insert>
+	
+	<delete id="deleteTag" parameterClass="long">
+		DELETE FROM ggt_tag
+		WHERE ggt_file_id=#id#
+	</delete>
+</sqlMap>

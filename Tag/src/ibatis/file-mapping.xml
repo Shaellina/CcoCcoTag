@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="file">
+	<typeAlias alias="FileVO" type="tag.models.FileVO" />
+	
+	<select id="getFileList" resultClass="FileVO">
+		SELECT 
+				id,
+				title,
+				category,
+				description,
+				thumbnail_url as thumbnail,
+				wordcloud_url as wordCloud,
+				ggt_user_id as userId
+		FROM	ggt_file
+	</select>
+	
+	<select id="getFileId" parameterClass="FileVO" resultClass="FileVO">
+		SELECT
+				id
+		FROM	ggt_file
+		WHERE	ggt_user_id=#userId#
+		AND		rownum &lt; 2
+		ORDER BY id desc
+	</select>
+	
+	<insert id="uploadFile" parameterClass="FileVO">
+		INSERT INTO ggt_file (
+			id,
+			title,
+			category,
+			description,
+			thumbnail_url,
+			wordcloud_url,
+			ggt_user_id
+		) VALUES (
+			seq_file_id.nextval,
+			#title#,
+			#category#,
+			#description#,
+			#thumbnail#,
+			#wordCloud#,
+			#userId#
+		)
+	</insert>
+	
+	<select id="getFileDetail" parameterClass="long" resultClass="FileVO">
+		SELECT 
+				id,
+				title,
+				category,
+				description,
+				thumbnail_url as thumbnail,
+				wordcloud_url as wordCloud
+		FROM	ggt_file
+		WHERE 	id=#id#
+	</select>
+	
+	<select id="deleteFileSelect" parameterClass="FileVO" resultClass="FileVO">
+		SELECT
+				id,
+				title,
+				category,
+				description,
+				thumbnail_url as thumbnail,
+				wordcloud_url as wordCloud,
+				ggt_user_id as userId
+		FROM	ggt_file
+		WHERE	id=#id# AND ggt_user_id=#userId#
+	</select>
+	
+	<delete id="deleteFile" parameterClass="FileVO">
+		DELETE FROM ggt_file
+		WHERE id=#id#
+	</delete>
+	
+</sqlMap>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="user">
+	<typeAlias alias="UserVO" type="tag.models.UserVO" />
+	
+	<select id="loginAction" parameterClass="UserVO" resultClass="UserVO">
+		SELECT
+				id,
+				email,
+				name
+		FROM ggt_user
+		WHERE email=#email# AND pwd=#pwd#
+	</select>
+	
+	<insert id="signupAction" parameterClass="UserVO">
+		INSERT INTO ggt_user (
+				id,
+				email,
+				name,
+				pwd
+		)VALUES(
+				seq_user_id.nextval,
+				#email#,
+				#name#,
+				#pwd#
+		)
+	</insert>
+	
+	<delete id="deleteAction" parameterClass="UserVO">
+		DELETE FROM ggt_user
+		WHERE id=#id# AND pwd=#pwd#
+	</delete>
+	
+	<select id="signupCheckAction" parameterClass="UserVO" resultClass="int">
+		SELECT
+				count(*) as cnt
+		FROM	ggt_user
+		WHERE	email=#email#
+	</select>
+	
+</sqlMap>

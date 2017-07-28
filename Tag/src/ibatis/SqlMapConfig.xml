@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+	<settings useStatementNamespaces="true" />
+
+	<transactionManager type="JDBC" commitRequired="false">
+		<!-- simple 과 connection pooling 을 바꿀 수 있음 -->
+		<dataSource type="SIMPLE">
+			<property name="JDBC.Driver" value="oracle.jdbc.OracleDriver" />
+			<property name="JDBC.ConnectionURL" value="jdbc:oracle:thin:@70.12.50.58:1521:xe" />
+			<property name="JDBC.Username" value="bigdata" />
+			<property name="JDBC.Password" value="bigdata" />
+		</dataSource>
+	</transactionManager>
+
+<!-- query가 있는 위치를 나타냄 -->
+	<sqlMap resource="ibatis/file-mapping.xml" />
+	<sqlMap resource="ibatis/user-mapping.xml" />
+	<sqlMap resource="ibatis/tag-mapping.xml" />
+</sqlMapConfig>
