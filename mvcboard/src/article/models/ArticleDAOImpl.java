@@ -12,6 +12,13 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import com.ibatis.sqlmap.client.SqlMapClient;
+import com.ibatis.sqlmap.engine.mapping.sql.Sql;
+
+import article.controllers.PageNation;
+import article.controllers.PageVO;
+import ibatis.QueryHandler;
+
 public class ArticleDAOImpl implements ArticleDAO {
 	private static ArticleDAOImpl articleDAO = null;
 
@@ -93,7 +100,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 	@Override
 	public void insertArticle(ArticleVO articleVO) throws Exception {
-		Connection conn = null;
+		/*Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		StringBuffer sql = new StringBuffer();
@@ -119,12 +126,17 @@ public class ArticleDAOImpl implements ArticleDAO {
 			// execute는 DDL을 작성하거나 메타데이터를 가져올 때
 		} finally {
 			dbClose(pstmt, conn);
-		}
+		}*/
+		
+		SqlMapClient sqlMap = QueryHandler.getInstance();
+		sqlMap.insert("article.insertArticle", articleVO);
+		
+		
 	}
 
 	@Override
 	public List<ArticleVO> getArticleList() throws Exception {
-		List<ArticleVO> list = new ArrayList<>();
+		/*List<ArticleVO> list = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -150,6 +162,10 @@ public class ArticleDAOImpl implements ArticleDAO {
 		} finally {
 			dbClose(rs, pstmt, conn);
 		}
+		return list;*/
+		
+		SqlMapClient sqlMap = QueryHandler.getInstance();
+		List<ArticleVO> list = sqlMap.queryForList("article.getArticleList");
 		return list;
 	}
 
@@ -197,10 +213,20 @@ public class ArticleDAOImpl implements ArticleDAO {
 			dbClose(rs, pstmt, conn);
 		}
 		return list;
+/*		SqlMapClient sqlMap = QueryHandler.getInstance();
+		
+		int start = pageSize * (page - 1) + 1;
+		int end = pageSize * page;
+		
+		PageVO pageVO = new PageVO();
+		pageVO.setStartNum(start);
+		pageVO.setEndNum(end);
+		
+		return sqlMap.queryForList("article.getArticlePageList", pageVO);*/
 	}
 
 	public ArticleVO getDetail(long no) throws Exception {
-		ArticleVO articleVO = null;
+		/* ArticleVO articleVO = null;
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -232,13 +258,16 @@ public class ArticleDAOImpl implements ArticleDAO {
 			}
 		} finally {
 			dbClose(rs, pstmt, conn);
-		}
+		}*/
+		SqlMapClient sqlMap = QueryHandler.getInstance();
+		ArticleVO articleVO = (ArticleVO) sqlMap.queryForObject("article.getDetail", no);
+
 		return articleVO;
 	}
 
 	@Override
 	public void updateViewCount(long no) throws Exception {
-		Connection conn = null;
+		/*Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		StringBuffer sql = new StringBuffer();
@@ -255,13 +284,17 @@ public class ArticleDAOImpl implements ArticleDAO {
 			}
 		} finally {
 			dbClose(pstmt, conn);
-		}
+		}*/
+		
+		SqlMapClient sqlMap = QueryHandler.getInstance();
+		sqlMap.update("article.updateViewCount", no);
+		
 	}
 
 	@Override
 	public void updateArticle(ArticleVO articleVO) throws Exception {
 
-		Connection conn = null;
+		/*Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		StringBuffer sql = new StringBuffer();
@@ -283,7 +316,11 @@ public class ArticleDAOImpl implements ArticleDAO {
 			}
 		} finally {
 			dbClose(pstmt, conn);
-		}
+		}*/
+		
+		SqlMapClient sqlMap = QueryHandler.getInstance();
+		sqlMap.update("article.updateArticle", articleVO);
+		
 	}
 
 	@Override
@@ -319,7 +356,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	@Override
 	public void deleteArticle(long no, String pwd) throws Exception {
 
-		Connection conn = null;
+		/*Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		StringBuffer sql = new StringBuffer();
@@ -337,7 +374,13 @@ public class ArticleDAOImpl implements ArticleDAO {
 			}
 		} finally {
 			dbClose(pstmt, conn);
-		}
+		}*/
+		
+		ArticleVO articleVO = new ArticleVO();
+		articleVO.setNo(no);
+		articleVO.setPwd(pwd);
+		SqlMapClient sqlMap = QueryHandler.getInstance();
+		sqlMap.delete("article.deleteArticle", articleVO);
 
 	}
 
@@ -368,7 +411,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 	@Override
 	public long getTotalCount() throws Exception {
-		Connection conn = null;
+/*		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
@@ -388,6 +431,9 @@ public class ArticleDAOImpl implements ArticleDAO {
 		} finally {
 			dbClose(rs, pstmt, conn);
 		}
-		return count;
+		return count;*/
+		
+		SqlMapClient sqlMap = QueryHandler.getInstance();
+		return (Long)sqlMap.queryForObject("article.getTotalCount");
 	}
 }

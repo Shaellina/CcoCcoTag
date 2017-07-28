@@ -6,66 +6,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 <link rel="shortcut icon" href="/favicon.ico" />
-<style type="text/css">
-table.type08 {
-	border-collapse: collapse;
-	text-align: left;
-	line-height: 1.5;
-	border-left: 1px solid #ccc;
-	margin: 20px 10px;
-}
-
-table.type08 thead th {
-	padding: 10px;
-	font-weight: bold;
-	border-top: 1px solid #ccc;
-	border-right: 1px solid #ccc;
-	border-bottom: 2px solid #c00;
-	background: #dcdcd1;
-}
-
-table.type08 tbody th {
-	width: 150px;
-	padding: 10px;
-	font-weight: bold;
-	vertical-align: top;
-	border-right: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-	background: #ececec;
-}
-
-table.type08 td {
-	width: 350px;
-	padding: 10px;
-	vertical-align: top;
-	border-right: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-}
-
-a {
-	text-decoration: none;
-}
-
-a:ENABLED {
-	color: #3f3f3f;
-}
-
-a:ACTIVE {
-	color: #3f3f3f;
-	text-shadow: navy;
-}
-
-a:HOVER {
-	color: #3f3f3f;
-	font-style: oblique;
-}
-</style>
+<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>"/>
+<script src="<c:url value="/resources/js/jquery-3.2.1.js" />"></script>
+<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 </head>
 <body>
-	<table class="type08">
-		<caption>게시물 리스트</caption>
+<div class="container">
+<h2 class="text-center">게시물 리스트</h2>
+	
+	<table class="table">
+<%-- 		<caption>게시물 리스트</caption> --%>
 		<thead>
 			<tr>
 				<th scope="col">번호</th>
@@ -85,23 +38,28 @@ a:HOVER {
 					<td>${vo.viewCount }</td>
 				</tr>
 			</c:forEach>
+			
 			<tr>
-				<td colspan="5" align="center"><a
-					href="pagelist?page=${cur-11 < 1? 1: cur-11 }"> ◁◁ </a> <c:forEach
+			
+				<td colspan="5" align="center"> <ul class="pagination"><li class="active"><a
+					href="pagelist?page=${cur-11 < 1? 1: cur-11 }"> ◁◁ </a></li></ul> <ul class="pagination"><c:forEach
 						items="${pages}" var="page">
 						<c:if test="${page != cur}">
-							<a href="pagelist?page=${page}">${page}</a>
+							<li><a href="pagelist?page=${page}">${page}</a></li>
 						</c:if>
 						<c:if test="${page == cur }">
-							<a>${page}</a>
+							<li class="active"><a>${page}</a></li>
 						</c:if>
-					</c:forEach> <a href="pagelist?page=${cur+11 > end-1? end-1: cur+11 }"> ▷▷
-				</a></td>
+					</c:forEach></ul> <ul class="pagination"><li class="active"><a href="pagelist?page=${cur+11 > end-1? end-1: cur+11 }"> ▷▷
+				</a></li></ul></td>
+			
 			</tr>
 		</tbody>
 	</table>
+	</div>
 	<br />
 	<a href="insert">글쓰기</a>
 	<br />
+	</div>
 </body>
 </html>

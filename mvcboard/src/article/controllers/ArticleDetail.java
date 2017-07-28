@@ -11,9 +11,7 @@ public class ArticleDetail extends AbstractController {
 
 	@Override
 	public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
-
 		ArticleDAO articleDAO = ArticleDAOImpl.getInstance();
-
 		try {
 			long no = Long.parseLong(request.getParameter("no"));
 			articleDAO.updateViewCount(no);

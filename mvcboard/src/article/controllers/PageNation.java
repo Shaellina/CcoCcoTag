@@ -10,16 +10,16 @@ public class PageNation {
 	private static Logger logger = 
 			LoggerFactory.getLogger(PageNation.class);
 	
-	long pg = 1;
-	long pageCount = 0;							// 전체 페이지 수
-	long totalCount = 0;						// 전체 게시물 수
-	long blockSize = 10;						// 한페이지에 출력할 페이지수
-	int pageSize = 10;	// 페이지당 출력할 게시물 수
-	long startPage = 0; //(pg - 1)/blockSize * blockSize + 1;	// 페이지 블럭 시작페이지
-	long endPage = 0;   //(pg - 1)/blockSize * blockSize + blockSize; // 페이지 블럭 끝페이지
-	
-	long startnum = 0; //
-	long endnum = 0; //
+	private long pg = 1;
+	private long pageCount = 0;							// 전체 페이지 수
+	private long totalCount = 0;						// 전체 게시물 수
+	private long blockSize = 10;						// 한페이지에 출력할 페이지수
+	private int pageSize = 10;	// 페이지당 출력할 게시물 수
+	private long startPage = 0; //(pg - 1)/blockSize * blockSize + 1;	// 페이지 블럭 시작페이지
+	private long endPage = 0;   //(pg - 1)/blockSize * blockSize + blockSize; // 페이지 블럭 끝페이지
+
+	private long startnum = 0; //
+	private long endnum = 0; //
 	private StringBuffer display = new StringBuffer();
 	
 	public PageNation(long pg) throws Exception {
