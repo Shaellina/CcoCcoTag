@@ -8,3 +8,15 @@ So when I write a tag, I thought it would be good to suggest a keyword that I wo
 
 We used **JAVE** to change the video to Audio, **IBM watson's STT** to change the audio to Text, and **R** to create word count and word cloud.
 
+## main
+![Image]()
+
+## detail
+![Image]()
+
+
+## References
+
+[JAVE (Java Audio Video Encoder) library](http://www.sauronsoftware.it/projects/jave)
+
+[IBM Watson API java sdk](https://github.com/watson-developer-cloud/java-sdk)
