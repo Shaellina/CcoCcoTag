@@ -9,10 +9,10 @@ So when I write a tag, I thought it would be good to suggest a keyword that I wo
 We used **JAVE** to change the video to Audio, **IBM watson's STT** to change the audio to Text, and **R** to create word count and word cloud.
 
 ## main
-![Picture description](/Image/main.png){: .center-image}
+![Image_main](/Image/main.png){: .center-image }
 
 ## detail
-![Picture description](/Image/detail.png){: .center-image}
+![Image detail](/Image/detail.png){: .center-image }
 
 
 ## References
