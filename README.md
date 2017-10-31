@@ -12,7 +12,7 @@ We used **JAVE** to change the video to Audio, **IBM watson's STT** to change th
 ![Image_main](/Image/main.png){: .center-image }
 
 ## detail
-![Image detail](/Image/detail.png){: .center-image }
+![Image detail](/Image/detail.png){: display="block" margin="auto" }
 
 
 ## References
